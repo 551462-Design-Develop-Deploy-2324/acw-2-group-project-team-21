@@ -1,0 +1,67 @@
+﻿@page "/RagFeedbackDisplay"
+@inject NavigationManager NavigationManager
+
+<MudContainer>
+    <MudPaper Elevation="4" Class="feedback-container">
+        <MudTypography Typo="Typo.h4" Class="feedback-header">Feedback Summary</MudTypography>
+        
+        <!-- Display understanding rating -->
+        <div class="feedback-section">
+            <p>Understanding Rating: @understandingRating</p>
+        </div>
+        
+        <!-- Display pace rating -->
+        <div class="feedback-section">
+            <p>Pace Rating: @paceRating</p>
+        </div>
+        
+        <!-- Display additional comments -->
+        <div class="feedback-section">
+            <p>Additional Comments:</p>
+            <p>@additionalComments</p>
+        </div>
+    </MudPaper>
+</MudContainer>
+
+@code {
+    private string understandingRating;
+    private string paceRating;
+    private string additionalComments;
+
+    protected override void OnInitialized()
+    {
+        try
+        {
+            string filePath = "wwwroot/Feedback.txt";
+            string feedbackContent = System.IO.File.ReadAllText(filePath);
+
+            // Parse feedback content
+            ParseFeedbackContent(feedbackContent);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error reading feedback file: {ex.Message}");
+        }
+    }
+
+    private void ParseFeedbackContent(string content)
+    {
+        var lines = content.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+        foreach (var line in lines)
+        {
+            if (line.StartsWith("Understanding:"))
+            {
+                understandingRating = line.Replace("Understanding:", "").Trim();
+            }
+            else if (line.StartsWith("Pace:"))
+            {
+                paceRating = line.Replace("Pace:", "").Trim();
+            }
+            else if (line.StartsWith("Additional Comments:"))
+            {
+                additionalComments = line.Replace("Additional Comments:", "").Trim();
+            }
+        }
+    }
+}

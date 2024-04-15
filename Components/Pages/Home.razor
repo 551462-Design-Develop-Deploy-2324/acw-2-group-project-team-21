@@ -1,0 +1,46 @@
+﻿@page "/"
+@inject NavigationManager NavigationManager
+
+@using MudBlazor 
+
+<MudContainer>
+    <MudPaper Elevation="4" Class="login-container">
+        <MudTypography Typo="Typo.h4" Class="login-header">Login</MudTypography>
+        
+        <MudButton Color="Color.Primary" Variant="Variant.Filled" Class="login-button" OnClick="@(() => RedirectToLogin("student"))">
+            Student Login
+        </MudButton>
+
+        <MudButton Color="Color.Primary" Variant="Variant.Filled" Class="login-button" OnClick="@(() => RedirectToLogin("supervisor"))">
+            Personal Supervisor Login
+        </MudButton>
+
+        <MudButton Color="Color.Primary" Variant="Variant.Filled" Class="login-button" OnClick="@(() => RedirectToLogin("lecturer"))">
+            Lecturer Login
+        </MudButton>
+    </MudPaper>
+</MudContainer>
+
+@code {
+    private void RedirectToLogin(string role)
+    {
+        // Redirect logic based on the selected role
+        switch (role.ToLower())
+        {
+            case "student":
+                // Redirect to student login page
+                NavigationManager.NavigateTo("/student-login");
+                break;
+            case "supervisor":
+                // Redirect to supervisor login page
+                NavigationManager.NavigateTo("/supervisor-login");
+                break;
+            case "lecturer":
+                // Redirect to lecturer login page
+                NavigationManager.NavigateTo("/lecturer-login");
+                break;
+            default:
+                break;
+        }
+    }
+}

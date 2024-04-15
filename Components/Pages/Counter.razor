@@ -1,0 +1,57 @@
+﻿@page "/counter"
+@rendermode InteractiveServer
+
+@inject NavigationManager NavigationManager
+
+<MudContainer>
+    <MudPaper Elevation="4" Class="chat-container">
+        <MudTypography Typo="Typo.h4" Class="chat-header">Chat Room</MudTypography>
+        
+        <!-- Chat messages display -->
+        <div class="chat-messages">
+            <!-- Example: Displaying received messages -->
+            @foreach (var message in chatMessages)
+            {
+                <div class="message">
+                    <p>@message.Sender: @message.Content</p>
+                    <button @onclick="() => ReplyToMessage(message)">Reply</button>
+                </div>
+            }
+        </div>
+        
+        <!-- Chat input for sending messages -->
+        <div class="chat-input">
+            <input type="text" @bind="newMessage" />
+            <button @onclick="SendMessage">Send</button>
+        </div>
+    </MudPaper>
+</MudContainer>
+
+@code {
+    private List<ChatMessage> chatMessages = new List<ChatMessage>(); // Sample chat messages
+    
+    private string newMessage;
+
+    private void SendMessage()
+    {
+        if (!string.IsNullOrWhiteSpace(newMessage))
+        {
+            // Simulate sending message (add to chatMessages list)
+            chatMessages.Add(new ChatMessage { Sender = "User", Content = newMessage });
+            newMessage = ""; // Clear input after sending
+        }
+    }
+
+    private void ReplyToMessage(ChatMessage message)
+    {
+        // Implement reply functionality (e.g., pre-fill input with message details)
+        // This can be customized based on your requirements
+        newMessage = $"@{message.Sender} ";
+    }
+
+    public class ChatMessage
+    {
+        public string Sender { get; set; }
+        public string Content { get; set; }
+    }
+}

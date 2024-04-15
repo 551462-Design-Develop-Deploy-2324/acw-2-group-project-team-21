@@ -1,0 +1,86 @@
+﻿@page "/RagRating"
+@inject NavigationManager NavigationManager
+
+<MudContainer>
+    <MudPaper Elevation="4" Class="rating-container">
+        <MudTypography Typo="Typo.h4" Class="rating-header">Rate the Lecture</MudTypography>
+        
+        <!-- Rating buttons for Understanding -->
+        <div class="rating-section">
+            <p>Understanding:</p>
+            <MudButton Color="Color.Error" Variant="Variant.Filled" Class="rating-button" @onclick="() => RateUnderstanding(UnderstandingRating.Red)">Red</MudButton>
+            <MudButton Color="Color.Warning" Variant="Variant.Filled" Class="rating-button" @onclick="() => RateUnderstanding(UnderstandingRating.Amber)">Amber</MudButton>
+            <MudButton Color="Color.Success" Variant="Variant.Filled" Class="rating-button" @onclick="() => RateUnderstanding(UnderstandingRating.Green)">Green</MudButton>
+        </div>
+        
+        <!-- Rating buttons for Pace -->
+        <div class="rating-section">
+            <p>Pace:</p>
+            <MudButton Color="Color.Error" Variant="Variant.Filled" Class="rating-button" @onclick="() => RatePace(PaceRating.Red)">Red</MudButton>
+            <MudButton Color="Color.Warning" Variant="Variant.Filled" Class="rating-button" @onclick="() => RatePace(PaceRating.Amber)">Amber</MudButton>
+            <MudButton Color="Color.Success" Variant="Variant.Filled" Class="rating-button" @onclick="() => RatePace(PaceRating.Green)">Green</MudButton>
+        </div>
+        
+        <!-- Comment input -->
+        <div class="comment-section">
+            <label>Additional Comments:</label>
+            <textarea @bind="additionalComments" rows="4"></textarea>
+            <MudButton Color="Color.Primary" Variant="Variant.Filled" Class="submit-button" @onclick="SaveFeedback">Submit</MudButton>
+        </div>
+    </MudPaper>
+</MudContainer>
+
+@code {
+    private string additionalComments = "";
+    private UnderstandingRating selectedUnderstanding;
+    private PaceRating selectedPace;
+    
+    // Define nested enums for UnderstandingRating and PaceRating
+    private enum UnderstandingRating
+    {
+        Red,
+        Amber,
+        Green
+    }
+
+    private enum PaceRating
+    {
+        Red,
+        Amber,
+        Green
+    }
+
+    private void RateUnderstanding(UnderstandingRating rating)
+    {
+        selectedUnderstanding = rating;
+    }
+
+    private void RatePace(PaceRating rating)
+    {
+        selectedPace = rating;
+    }
+
+    private void SaveFeedback()
+    {
+        // Save ratings and comments to text file
+        string feedback = $"Understanding: {selectedUnderstanding}\n" +
+                          $"Pace: {selectedPace}\n" +
+                          $"Additional Comments: {additionalComments}";
+
+        try
+        {
+            string filePath = "wwwroot/Feedback.txt";
+            using (StreamWriter writer = new StreamWriter(filePath, append: true))
+            {
+                writer.WriteLine(feedback);
+            }
+
+            // Navigate to feedback display page
+            NavigationManager.NavigateTo("/RagFeedbackDisplay");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error saving feedback: {ex.Message}");
+        }
+    }
+}
