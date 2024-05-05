@@ -1,0 +1,36 @@
+﻿<h1>@ViewBag.RoomName</h1>
+<div id="messages">
+    @foreach (var message in ViewBag.Messages)
+    {
+        <div>@message.Username: @message.Message - @message.Timestamp</div>
+        <form method="post" action="/Home/Reply?roomName=@ViewBag.RoomName&messageId=@message.Id">
+            <input type="text" name="message" placeholder="Reply to this message" required />
+            <button type="submit">Reply</button>
+        </form>
+    }
+</div>
+<form method="post" action="/Home/SendMessage?roomName=@ViewBag.RoomName">
+    <input type="text" name="message" placeholder="Type your message" required />
+    <button type="submit">Send</button>
+</form>
+
+<hr />
+
+<h2>Feedback</h2>
+<form method="post" action="/Home/SubmitFeedback?roomName=@ViewBag.RoomName">
+    <label for="Understanding">Understanding (1-5):</label>
+    <input type="number" name="Understanding" min="1" max="5" required />
+
+    <label for="Pace">Pace (1-5):</label>
+    <input type="number" name="Pace" min="1" max="5" required />
+
+    <label for="AdditionalComments">Additional Comments:</label>
+    <textarea name="AdditionalComments" rows="4"></textarea>
+
+    <button type="submit">Submit Feedback</button>
+</form>
+
+
+
+
+

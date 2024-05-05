@@ -1,0 +1,7 @@
+﻿alice,password123,student,1
+steve,password,student,2
+jerry,098,student,2
+bob,password456,supervisor,1
+jerry,123,supervisor,2
+charlie,password789,lecturer,0
+jake,456,lecturer,0

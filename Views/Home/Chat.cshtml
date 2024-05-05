@@ -1,0 +1,54 @@
+﻿@model ChatApp.Models.ChatRoom
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat Room - HullEngage</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="container mt-4">
+        <h2 class="text-center">Chat Room: @Model.RoomName</h2>
+
+        <div id="chat-messages" class="mt-4">
+            @foreach (var message in Model.Messages)
+            {
+                <div class="message">
+                    <strong>@message.Username</strong>: @message.Message
+                    <small>@message.Timestamp.ToString("HH:mm:ss")</small>
+                </div>
+            }
+        </div>
+
+        <form method="post" asp-action="SendMessage" class="mt-4">
+            <input type="hidden" name="roomName" value="@Model.RoomName" />
+            <div class="input-group">
+                <input type="text" name="message" class="form-control" placeholder="Type your message..." required />
+                <button type="submit" class="btn btn-primary">Send</button>
+            </div>
+        </form>
+
+        <!-- Back button -->
+        <button class="btn btn-secondary mt-4" onclick="goBack()">Back</button>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // JavaScript function to navigate back
+        function goBack() {
+            window.history.back();
+        }
+
+        // Auto-scroll to bottom of chat messages
+        $('#chat-messages').scrollTop($('#chat-messages')[0].scrollHeight);
+
+        // Refresh chat messages every 5 seconds
+        setInterval(function () {
+            location.reload();
+        }, 5000);
+    </script>
+</body>
+</html>
