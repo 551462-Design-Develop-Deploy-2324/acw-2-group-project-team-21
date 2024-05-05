@@ -1,0 +1,5 @@
+User|Welcome to Lab 1!|05/05/2024 10:00:00|
+User|Let's start working on our lab tasks.|05/05/2024 10:10:00|
+User|Need help with setting up the environment?|05/05/2024 10:20:00|
+User|Make sure to collaborate with your lab partner effectively.|05/05/2024 10:30:00|
+User|Great teamwork!|05/05/2024 11:00:00|

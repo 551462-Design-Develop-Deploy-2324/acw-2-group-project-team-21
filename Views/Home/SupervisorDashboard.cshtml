@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Supervisor Dashboard";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Supervisor Dashboard</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>Welcome, @User.Identity.Name!</h2>
+
+
+        <h3>Available Lectures:</h3>
+        <ul>
+            @foreach (var lectureRoom in new List<string> { "lecture1", "lecture2", "oop", "data_structures", "algorithms" })
+            {
+                <li><a asp-action="Room" asp-route-roomName="@lectureRoom">@(lectureRoom.Replace("-", " ").ToUpper())</a></li>
+            }
+        </ul>
+
+        <hr />
+
+        <h3>Available Labs:</h3>
+        <ul>
+            @foreach (var labRoom in new List<string> { "lab1", "lab2" })
+            {
+                <li><a asp-action="Room" asp-route-roomName="@labRoom">@(labRoom.Replace("-", " ").ToUpper())</a></li>
+            }
+        </ul>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

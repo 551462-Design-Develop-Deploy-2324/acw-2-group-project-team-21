@@ -1,0 +1,44 @@
+﻿@model ChatApp.Models.FeedbackDataViewModel
+
+<h1>Lecturer Dashboard - Feedback</h1>
+
+@if (Model.FeedbackItems != null && Model.FeedbackItems.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Understanding</th>
+                <th>Pace</th>
+                <th>Comments</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var feedback in Model.FeedbackItems)
+            {
+                <tr>
+                    <td>
+                        <span style="color: @(feedback.Understanding <= 2 ? "red" : (feedback.Understanding == 3 ? "orange" : "green"))">
+                            @feedback.Understanding
+                        </span>
+                    </td>
+                    <td>
+                        <span style="color: @(feedback.Pace <= 2 ? "red" : (feedback.Pace == 3 ? "orange" : "green"))">
+                            @feedback.Pace
+                        </span>
+                    </td>
+                    <td>
+                        @feedback.Comments
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No feedback available.</p>
+}
+
+<div class="mt-4">
+    <a asp-action="SupervisorDashboard" class="btn btn-primary">Go to Supervisor Dashboard</a>
+</div>

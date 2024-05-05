@@ -1,0 +1,5 @@
+User|Hello students! Ready for Lab 2?|06/05/2024 14:00:00|
+User|Today's lab involves implementing advanced concepts.|06/05/2024 14:10:00|
+User|Don't hesitate to ask questions during the lab.|06/05/2024 14:20:00|
+User|Remember to document your code for clarity.|06/05/2024 14:30:00|
+User|Well done, everyone!|06/05/2024 15:00:00|
